@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+@theme {
+  /* Surfaces — near-black with a green undertone */
+  --color-ink: #07100c;
+  --color-ink-2: #0a1611;
+  --color-ink-3: #0e1d17;
+
+  /* Deep forest sections */
+  --color-forest: #0a2a22;
+  --color-forest-2: #0c352a;
+
+  /* Lime accent */
+  --color-lime: #dbff9c;
+  --color-lime-2: #c8f57a;
+
+  /* Indigo — primary CTA (mprez-style) */
+  --color-violet: #5b46f0;
+  --color-violet-2: #6f5cf6;
+
+  /* Brand green (Myrvold) + ink blue for trust accents */
+  --color-grass: #2fae66;
+  --color-trust: #2d6be4;
+
+  /* Text */
+  --color-paper: #f4f8f3;
+  --color-muted: #8fa39a;
+  --color-line: rgba(255, 255, 255, 0.1);
+
+  --font-display: var(--font-archivo);
+  --font-sans: var(--font-inter);
+
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 24px 60px -30px rgba(0, 0, 0, 0.8);
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer base {
+  /* No native smooth-scroll — Lenis handles smoothing (the two conflict). */
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-lime);
+    color: #07100c;
+  }
+}
+
+@layer components {
+  .display {
+    /* Compressed heavy grotesque — closest free match to mprez's
+       "National 2 Compressed Bold". */
+    font-family: var(--font-archivo), "Arial Narrow", Impact, sans-serif;
+    font-weight: 800;
+    font-variation-settings: "wght" 820, "wdth" 62;
+    font-stretch: 62%;
+    line-height: 0.96;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+}
+
+/* Hero headline — plain rule (not a Tailwind arbitrary value) so it is
+   unambiguous and unaffected by utility-class cache quirks. Unlayered =
+   higher priority than @layer utilities. */
+.hero-title {
+  font-size: clamp(2.75rem, 5.2vw, 5rem);
+  line-height: 1;
+}
+
+/* Infinite marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Animated grain/glow helpers */
+.glow-lime {
+  background: radial-gradient(closest-side, rgba(219, 255, 156, 0.16), transparent);
+}
+
+.glow-violet {
+  background: radial-gradient(closest-side, rgba(91, 70, 240, 0.28), transparent);
+}
+
+@keyframes floaty {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.floaty {
+  animation: floaty 6s ease-in-out infinite;
+}
+
+/* Hero collage — vertically scrolling columns of website cards */
+@keyframes col-scroll {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+.col-track {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  animation: col-scroll var(--dur, 40s) linear infinite;
+}
+
+.col-track.reverse {
+  animation-direction: reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floaty,
+  .col-track {
+    animation: none;
+  }
+}

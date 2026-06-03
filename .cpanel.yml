@@ -1,0 +1,8 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/myrvoldm/myrvold-marketing
+    - /bin/cp -r . $DEPLOYPATH
+    - cd $DEPLOYPATH && npm install --production=false
+    - cd $DEPLOYPATH && npm run build
+    - touch $DEPLOYPATH/tmp/restart.txt
