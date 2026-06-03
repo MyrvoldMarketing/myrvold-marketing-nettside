@@ -88,27 +88,18 @@ export async function POST(req: Request) {
     "",
   ].join("\n");
 
-  // Nodemailer — bruker SMTP konfigurert via env-variabler (cPanel SMTP)
+  // Nodemailer — bruker cPanel sin lokale mailserver (ingen passord trengs)
   const smtpHost = process.env.SMTP_HOST ?? "localhost";
-  const smtpPort = parseInt(process.env.SMTP_PORT ?? "587");
-  const smtpUser = process.env.SMTP_USER ?? fromAddress;
+  const smtpPort = parseInt(process.env.SMTP_PORT ?? "25");
+  const smtpUser = process.env.SMTP_USER;
   const smtpPass = process.env.SMTP_PASS;
 
-  if (!smtpPass) {
-    // SMTP ikke konfigurert ennå — logg lead så den ikke går tapt
-    console.info("[lead] SMTP_PASS ikke satt — logger lead:", {
-      name, email, phone, industry, helpWith, goal, budget, timeline,
-    });
-    return Response.json({ ok: true, delivered: false });
-  }
-
   try {
-    const transporter = nodemailer.createTransport({
-      host: smtpHost,
-      port: smtpPort,
-      secure: smtpPort === 465,
-      auth: { user: smtpUser, pass: smtpPass },
-    });
+    const transportConfig: nodemailer.TransportOptions = smtpPass
+      ? { host: smtpHost, port: smtpPort, secure: smtpPort === 465, auth: { user: smtpUser, pass: smtpPass } }
+      : { host: smtpHost, port: smtpPort, secure: false };
+
+    const transporter = nodemailer.createTransport(transportConfig as nodemailer.TransportOptions);
 
     await transporter.sendMail({
       from: `"${fromName}" <${fromAddress}>`,
