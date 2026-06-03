@@ -88,16 +88,23 @@ export async function POST(req: Request) {
     "",
   ].join("\n");
 
-  // Nodemailer — bruker cPanel sin lokale mailserver (ingen passord trengs)
-  const smtpHost = process.env.SMTP_HOST ?? "localhost";
-  const smtpPort = parseInt(process.env.SMTP_PORT ?? "25");
-  const smtpUser = process.env.SMTP_USER;
+  // Nodemailer — sendmail via cPanel sin /usr/sbin/sendmail (ingen auth trengs)
+  // Faller tilbake til SMTP om SMTP_PASS er satt
   const smtpPass = process.env.SMTP_PASS;
 
   try {
     const transporter = smtpPass
-      ? nodemailer.createTransport({ host: smtpHost, port: smtpPort, secure: smtpPort === 465, auth: { user: smtpUser, pass: smtpPass } })
-      : nodemailer.createTransport({ host: smtpHost, port: smtpPort, secure: false });
+      ? nodemailer.createTransport({
+          host: process.env.SMTP_HOST ?? "localhost",
+          port: parseInt(process.env.SMTP_PORT ?? "587"),
+          secure: parseInt(process.env.SMTP_PORT ?? "587") === 465,
+          auth: { user: process.env.SMTP_USER, pass: smtpPass },
+        })
+      : nodemailer.createTransport({
+          sendmail: true,
+          newline: "unix",
+          path: "/usr/sbin/sendmail",
+        } as Parameters<typeof nodemailer.createTransport>[0]);
 
     await transporter.sendMail({
       from: `"${fromName}" <${fromAddress}>`,
