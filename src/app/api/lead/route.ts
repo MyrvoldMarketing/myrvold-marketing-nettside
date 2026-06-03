@@ -95,11 +95,9 @@ export async function POST(req: Request) {
   const smtpPass = process.env.SMTP_PASS;
 
   try {
-    const transportConfig: nodemailer.TransportOptions = smtpPass
-      ? { host: smtpHost, port: smtpPort, secure: smtpPort === 465, auth: { user: smtpUser, pass: smtpPass } }
-      : { host: smtpHost, port: smtpPort, secure: false };
-
-    const transporter = nodemailer.createTransport(transportConfig as nodemailer.TransportOptions);
+    const transporter = smtpPass
+      ? nodemailer.createTransport({ host: smtpHost, port: smtpPort, secure: smtpPort === 465, auth: { user: smtpUser, pass: smtpPass } })
+      : nodemailer.createTransport({ host: smtpHost, port: smtpPort, secure: false });
 
     await transporter.sendMail({
       from: `"${fromName}" <${fromAddress}>`,

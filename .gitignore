@@ -1,8 +1,8 @@
 # Dependencies
 node_modules/
 
-# Next.js build
-.next/
+# Next.js build - inkluder .next i git for cPanel-deploy (npm build kjøres ikke på server)
+# .next/   ← ikke ignorer lenger
 out/
 
 # Environment variables — legg disse til i cPanel Node.js App manuelt
