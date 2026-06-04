@@ -194,7 +194,7 @@ export default function LeadForm({ variant = "design" }: { variant?: LeadFormVar
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, variant }),
       });
       const json = await res.json().catch(() => ({}));
       if (res.ok && json.ok) {
@@ -542,16 +542,16 @@ export default function LeadForm({ variant = "design" }: { variant?: LeadFormVar
         </div>
       )}
 
-      {/* Honeypot */}
+      {/* Honeypot — must stay empty; bots fill it */}
       <input
         type="text"
-        name="company"
+        name="_hp"
         value={data.company}
         onChange={(e) => update("company", e.target.value)}
         tabIndex={-1}
         autoComplete="off"
         aria-hidden="true"
-        className="hidden"
+        style={{ display: "none" }}
       />
 
       {error && (

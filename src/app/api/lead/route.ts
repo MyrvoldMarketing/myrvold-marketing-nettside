@@ -4,6 +4,7 @@ import nodemailer from "nodemailer";
 export const runtime = "nodejs";
 
 type Payload = {
+  variant?: "design" | "contact";
   helpWith?: string;
   helpWithDetails?: string;
   hasWebsite?: string;
@@ -63,13 +64,16 @@ export async function POST(req: Request) {
     );
   }
 
+  const isContact = (data.variant ?? "design") === "contact";
+  const formLabel = isContact ? "TA KONTAKT" : "DESIGNFORSLAG";
+
   const to = process.env.LEAD_TO ?? "sebastian@myrvold.marketing";
-  const fromAddress = process.env.LEAD_FROM ?? "leads@myrvold.marketing";
+  const fromAddress = process.env.LEAD_FROM ?? "sebastian@myrvold.marketing";
   const fromName = process.env.LEAD_FROM_NAME ?? "Myrvold Marketing";
 
-  const subject = `Nytt lead: ${industry || name}`;
+  const subject = `[${formLabel}] ${industry || name}`;
   const text = [
-    "Ny henvendelse fra myrvold.marketing",
+    `=== ${formLabel} === myrvold.marketing`,
     "",
     `Navn:      ${name}`,
     `E-post:    ${email}`,
@@ -88,23 +92,23 @@ export async function POST(req: Request) {
     "",
   ].join("\n");
 
-  // Nodemailer — sendmail via cPanel sin /usr/sbin/sendmail (ingen auth trengs)
-  // Faller tilbake til SMTP om SMTP_PASS er satt
-  const smtpPass = process.env.SMTP_PASS;
-
   try {
+    // Bruker cPanel sin lokale Exim (port 25, ingen auth) som primær.
+    // Fallback til SMTP med auth om SMTP_PASS er satt.
+    const smtpPass = process.env.SMTP_PASS;
     const transporter = smtpPass
       ? nodemailer.createTransport({
           host: process.env.SMTP_HOST ?? "localhost",
           port: parseInt(process.env.SMTP_PORT ?? "587"),
           secure: parseInt(process.env.SMTP_PORT ?? "587") === 465,
-          auth: { user: process.env.SMTP_USER, pass: smtpPass },
+          auth: { user: process.env.SMTP_USER ?? fromAddress, pass: smtpPass },
         })
       : nodemailer.createTransport({
-          sendmail: true,
-          newline: "unix",
-          path: "/usr/sbin/sendmail",
-        } as Parameters<typeof nodemailer.createTransport>[0]);
+          host: "localhost",
+          port: 25,
+          secure: false,
+          ignoreTLS: true,
+        });
 
     await transporter.sendMail({
       from: `"${fromName}" <${fromAddress}>`,
@@ -114,7 +118,7 @@ export async function POST(req: Request) {
       text,
     });
 
-    return Response.json({ ok: true, delivered: true });
+    return Response.json({ ok: true });
   } catch (err) {
     console.error("[lead] send failed:", err);
     return Response.json(

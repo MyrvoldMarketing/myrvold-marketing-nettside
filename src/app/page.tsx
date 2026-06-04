@@ -541,7 +541,7 @@ export default function Home() {
                 <br />
                 betalende <span className="text-lime">kunder.</span>
               </h2>
-              <div className="pointer-events-none absolute -top-10 right-8 w-28 -rotate-6 sm:-top-12 sm:right-12 sm:w-40 lg:right-24 lg:w-52">
+              <div className="pointer-events-none hidden absolute -top-10 right-8 w-28 -rotate-6 sm:block sm:-top-12 sm:right-12 sm:w-40 lg:right-24 lg:w-52">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/mascot-quote.webp" alt="" aria-hidden className="floaty w-full" />
               </div>
