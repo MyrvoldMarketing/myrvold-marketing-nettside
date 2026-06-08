@@ -294,11 +294,14 @@ const PROCESS = [
 ];
 
 const WORK = [
+  { name: "Åsbekken maskin", tag: "Anleggsnettside", img: "/collage/aasbekken.png" },
   { name: "Manneprat", tag: "Kampanje-landingsside", img: "/collage/manneprat.jpg" },
-  { name: "Ents AS", tag: "B2B-nettside", img: "/collage/ents.jpg" },
+  { name: "Smestadpsykologene", tag: "Psykologklinikk", img: "/collage/okklinikken.png" },
   { name: "Hel Ved Panel", tag: "Nettbutikk", img: "/collage/helvedpanel.jpg" },
+  { name: "Nordic Roots", tag: "Nettside", img: "/collage/nordicroots.png" },
+  { name: "Flyt Elektro", tag: "Elektriker-nettside", img: "/collage/flytelektro.png" },
+  { name: "Strömstad Biltvätt", tag: "Biltvätt-nettside", img: "/collage/biltvatt.png" },
   { name: "Halden Taxi", tag: "Nettside + booking", img: "/collage/haldentaxi.jpg" },
-  { name: "Ekelund på Sydkoster", tag: "Nettside + prospekt", img: "/collage/ekelund.jpg" },
 ];
 
 const REVIEWS = [
@@ -784,36 +787,36 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
-            {WORK.map((w, i) => {
-              const span = i < 3 ? "lg:col-span-2" : "lg:col-span-3";
-              const wide = i === WORK.length - 1 ? "sm:col-span-2 lg:col-span-3" : span;
-              return (
-                <Reveal key={w.name} delay={(i % 3) * 90} className={wide}>
-                  <a
-                    href="#kontakt"
-                    className="group block h-full overflow-hidden rounded-3xl border border-line bg-ink-2"
-                  >
-                    <div className="relative aspect-[16/10] overflow-hidden">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={w.img}
-                        alt={`${w.name} – nettside laget av Myrvold Marketing`}
-                        className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
-                        loading="lazy"
-                      />
-                      <span className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-ink/60 text-paper backdrop-blur transition-colors group-hover:bg-lime group-hover:text-ink">
-                        <ArrowUpRight className="h-5 w-5" />
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between gap-3 p-5">
-                      <h3 className="text-lg font-semibold">{w.name}</h3>
-                      <p className="shrink-0 text-xs uppercase tracking-wider text-muted">{w.tag}</p>
-                    </div>
-                  </a>
-                </Reveal>
-              );
-            })}
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {WORK.map((w, i) => (
+              <Reveal
+                key={w.name}
+                delay={(i % 4) * 70}
+                className={i >= 4 ? "hidden sm:block" : ""}
+              >
+                <a
+                  href="#kontakt"
+                  className="group block h-full overflow-hidden rounded-3xl border border-line bg-ink-2"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={w.img}
+                      alt={`${w.name} – nettside laget av Myrvold Marketing`}
+                      className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
+                      loading="lazy"
+                    />
+                    <span className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-ink/60 text-paper backdrop-blur transition-colors group-hover:bg-lime group-hover:text-ink">
+                      <ArrowUpRight className="h-5 w-5" />
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between gap-3 p-5">
+                    <h3 className="text-lg font-semibold">{w.name}</h3>
+                    <p className="shrink-0 text-xs uppercase tracking-wider text-muted">{w.tag}</p>
+                  </div>
+                </a>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
@@ -867,9 +870,9 @@ export default function Home() {
           <Reveal>
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
-                <p className="eyebrow text-lime">Ekte ord fra ekte kunder</p>
+                <p className="eyebrow text-lime">Anmeldelser fra våre kunder</p>
                 <h2 className="display mt-4 text-[clamp(2rem,5vw,3.8rem)]">
-                  Anbefalt av folk som meg
+                  Anbefalinger fra norske bedrifter
                 </h2>
               </div>
               <div className="inline-flex items-center gap-3 rounded-2xl border border-line bg-ink-2 px-4 py-3">
