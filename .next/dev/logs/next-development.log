@@ -1,1 +1,4 @@
 {"timestamp":"00:00:02.476","source":"Server","level":"LOG","message":""}
+{"timestamp":"13:18:07.119","source":"Server","level":"LOG","message":"✓ Compiled in 178ms"}
+{"timestamp":"14:23:49.700","source":"Server","level":"LOG","message":"✓ Compiled in 45ms"}
+{"timestamp":"14:41:36.109","source":"Server","level":"LOG","message":"✓ Compiled in 193ms"}
