@@ -306,10 +306,8 @@ const WORK = [
   { name: "Manneprat", tag: "Kampanje-landingsside", img: "/collage/manneprat.jpg" },
   { name: "Smestadpsykologene", tag: "Psykologklinikk", img: "/collage/okklinikken.png" },
   { name: "Hel Ved Panel", tag: "Nettbutikk", img: "/collage/helvedpanel.jpg" },
-  { name: "Nordic Roots", tag: "Nettside", img: "/collage/nordicroots.png" },
   { name: "Flyt Elektro", tag: "Elektriker-nettside", img: "/collage/flytelektro.png" },
   { name: "Strömstad Biltvätt", tag: "Biltvätt-nettside", img: "/collage/biltvatt.png" },
-  { name: "Halden Taxi", tag: "Nettside + booking", img: "/collage/haldentaxi.jpg" },
 ];
 
 const REVIEWS = [
