@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/sebastianmyrvold/Desktop/Nettsider/myrvold-marketing/myrvold-marketing/src/app/kontakt/layout.tsx"],"sourcesContent":["import type { Metadata } from \"next\";\n\nexport const metadata: Metadata = {\n  title: \"Ta kontakt — Myrvold Marketing | Få et gratis designforslag\",\n  description:\n    \"Få et skreddersydd designforslag på ny nettside — gratis og uforpliktende. Svar innen 24 timer. Ingen forpliktelser, ingen salgspress.\",\n  openGraph: {\n    title: \"Ta kontakt — Myrvold Marketing\",\n    description:\n      \"Få et skreddersydd designforslag på ny nettside — gratis og uforpliktende. Svar innen 24 timer.\",\n    type: \"website\",\n    locale: \"nb_NO\",\n  },\n};\n\nexport default function KontaktLayout({ children }: { children: React.ReactNode }) {\n  return <>{children}</>;\n}\n"],"names":["metadata","title","description","openGraph","type","locale","KontaktLayout","children"],"mappings":";;;;;;;;AAEO,MAAMA,WAAqB;IAChCC,OAAO;IACPC,aACE;IACFC,WAAW;QACTF,OAAO;QACPC,aACE;QACFE,MAAM;QACNC,QAAQ;IACV;AACF;AAEe,SAASC,cAAc,EAAEC,QAAQ,EAAiC;IAC/E,qBAAO;kBAAGA;;AACZ"}}]
-}

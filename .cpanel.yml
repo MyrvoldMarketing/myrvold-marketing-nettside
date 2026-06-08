@@ -3,5 +3,4 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/myrvoldm/myrvold-marketing
     - /bin/cp -r . $DEPLOYPATH
-    - cd $DEPLOYPATH && npm install --production=false
     - touch $DEPLOYPATH/tmp/restart.txt
