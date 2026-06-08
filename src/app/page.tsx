@@ -880,7 +880,7 @@ export default function Home() {
               <div>
                 <p className="eyebrow text-lime">Anmeldelser fra våre kunder</p>
                 <h2 className="display mt-4 text-[clamp(2rem,5vw,3.8rem)]">
-                  Anbefalinger fra norske bedrifter
+                  Tilbakemeldinger fra bedrifter
                 </h2>
               </div>
               <div className="inline-flex items-center gap-3 rounded-2xl border border-line bg-ink-2 px-4 py-3">
