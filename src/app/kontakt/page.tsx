@@ -256,9 +256,9 @@ export default function KontaktPage() {
           <Reveal>
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
-                <p className="eyebrow text-lime">Ekte ord fra ekte kunder</p>
+                <p className="eyebrow text-lime">Anmeldelser fra våre kunder</p>
                 <h2 className="display mt-4 text-[clamp(2rem,4.5vw,3.2rem)] text-paper">
-                  De stolte på meg først
+                  Anbefalinger fra norske bedrifter
                 </h2>
               </div>
               <div className="inline-flex items-center gap-3 rounded-2xl border border-line bg-ink-2 px-4 py-3">

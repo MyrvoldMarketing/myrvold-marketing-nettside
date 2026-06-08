@@ -382,12 +382,12 @@ export default function LeadForm({ variant = "design" }: { variant?: LeadFormVar
               htmlFor="lead-industry"
               className="mb-2 block text-xs font-semibold uppercase tracking-wider text-paper/60"
             >
-              Bedriftsnavn / bransje
+              Bedriftsnavn
             </label>
             <input
               id="lead-industry"
               type="text"
-              placeholder="F.eks. Hansen Snekker AS — håndverker"
+              placeholder="F.eks. Hansen Snekker AS"
               value={data.industry}
               onChange={(e) => update("industry", e.target.value)}
               className={inputClass}
