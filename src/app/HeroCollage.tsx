@@ -3,22 +3,22 @@
 import Image from "next/image";
 
 const SHOTS = [
-  "/collage/ekelund.jpg",
-  "/collage/helvedpanel.jpg",
-  "/collage/ents.jpg",
-  "/collage/manneprat.jpg",
-  "/collage/haldentaxi.jpg",
-  "/collage/okklinikken.png",
-  "/collage/adpoint.png",
-  "/collage/helvedpanel2.png",
-  "/collage/proline.png",
-  "/collage/nordicroots.png",
-  "/collage/flytelektro.png",
-  "/collage/aasbekken.png",
-  "/collage/marinservice.png",
-  "/collage/biltvatt.png",
-  "/collage/nettbutikk.png",
-  "/collage/camping.png",
+  "/collage/ekelund.webp",
+  "/collage/helvedpanel.webp",
+  "/collage/ents.webp",
+  "/collage/manneprat.webp",
+  "/collage/haldentaxi.webp",
+  "/collage/okklinikken.webp",
+  "/collage/adpoint.webp",
+  "/collage/helvedpanel2.webp",
+  "/collage/proline.webp",
+  "/collage/nordicroots.webp",
+  "/collage/flytelektro.webp",
+  "/collage/aasbekken.webp",
+  "/collage/marinservice.webp",
+  "/collage/biltvatt.webp",
+  "/collage/nettbutikk.webp",
+  "/collage/camping.webp",
 ];
 
 const COL_COUNT = 5;

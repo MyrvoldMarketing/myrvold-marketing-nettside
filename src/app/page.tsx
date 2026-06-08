@@ -302,12 +302,12 @@ const PROCESS = [
 ];
 
 const WORK = [
-  { name: "Åsbekken maskin", tag: "Anleggsnettside", img: "/collage/aasbekken.png" },
-  { name: "Manneprat", tag: "Kampanje-landingsside", img: "/collage/manneprat.jpg" },
-  { name: "Smestadpsykologene", tag: "Psykologklinikk", img: "/collage/okklinikken.png" },
-  { name: "Hel Ved Panel", tag: "Nettbutikk", img: "/collage/helvedpanel.jpg" },
-  { name: "Flyt Elektro", tag: "Elektriker-nettside", img: "/collage/flytelektro.png" },
-  { name: "Strömstad Biltvätt", tag: "Biltvätt-nettside", img: "/collage/biltvatt.png" },
+  { name: "Åsbekken maskin", tag: "Anleggsnettside", img: "/collage/aasbekken.webp" },
+  { name: "Manneprat", tag: "Kampanje-landingsside", img: "/collage/manneprat.webp" },
+  { name: "Smestadpsykologene", tag: "Psykologklinikk", img: "/collage/okklinikken.webp" },
+  { name: "Hel Ved Panel", tag: "Nettbutikk", img: "/collage/helvedpanel.webp" },
+  { name: "Flyt Elektro", tag: "Elektriker-nettside", img: "/collage/flytelektro.webp" },
+  { name: "Strömstad Biltvätt", tag: "Biltvätt-nettside", img: "/collage/biltvatt.webp" },
 ];
 
 const REVIEWS = [
@@ -564,7 +564,7 @@ export default function Home() {
                 <div className="relative overflow-hidden rounded-[1.75rem] border border-white/10 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.8)]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/sebastian.jpg"
+                    src="/sebastian.webp"
                     alt="Sebastian Myrvold"
                     className="aspect-[4/3] w-full object-cover"
                     loading="lazy"
