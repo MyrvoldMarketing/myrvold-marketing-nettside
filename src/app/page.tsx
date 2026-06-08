@@ -68,6 +68,14 @@ function Youtube({ className }: IconProps) {
   );
 }
 
+function Tiktok({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06Z" />
+    </svg>
+  );
+}
+
 /* ----------------------------------------------------------------- *
  * Scroll-reveal wrapper
  * ----------------------------------------------------------------- */
@@ -999,10 +1007,18 @@ export default function Home() {
                 markedsføre den slik at potensielle kunder blir trofaste kunder.
               </p>
               <div className="mt-6 flex gap-3">
-                {[Facebook, Instagram, Linkedin, Youtube].map((Icon, i) => (
+                {[
+                  { Icon: Facebook, href: "https://www.facebook.com/MyrvoldMarketing", label: "Facebook" },
+                  { Icon: Instagram, href: "https://www.instagram.com/myrvoldmarketing/", label: "Instagram" },
+                  { Icon: Tiktok, href: "https://www.tiktok.com/@myrvoldmarketing", label: "TikTok" },
+                  { Icon: Youtube, href: "https://www.youtube.com/@MyrvoldMarketing", label: "YouTube" },
+                ].map(({ Icon, href, label }) => (
                   <a
-                    key={i}
-                    href="#"
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
                     className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-paper/70 transition-colors hover:border-lime hover:text-lime"
                   >
                     <Icon className="h-4 w-4" />
