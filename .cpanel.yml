@@ -2,5 +2,7 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/myrvoldm/myrvold-marketing
-    - /bin/cp -r . $DEPLOYPATH
+    - /bin/cp -r .next $DEPLOYPATH/
+    - /bin/cp -r public $DEPLOYPATH/
+    - /bin/cp package.json next.config.ts server.js $DEPLOYPATH/
     - touch $DEPLOYPATH/tmp/restart.txt
