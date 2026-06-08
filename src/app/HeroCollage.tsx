@@ -1,19 +1,13 @@
 "use client";
 
-/* ----------------------------------------------------------------- *
- * HeroCollage — a wall of real website screenshots tilted into TRUE
- * 3D perspective (parent `perspective` + child rotateX/Y/Z) so the
- * field recedes into the distance with real depth. Tiles stay LARGE
- * and bright (like the mprez reference); darkening is a soft centre
- * vignette so the corner tiles keep their colour. Columns scroll.
- * ----------------------------------------------------------------- */
+import Image from "next/image";
 
 const SHOTS = [
-  "/collage/ekelund.jpg?v=2",
-  "/collage/helvedpanel.jpg?v=2",
-  "/collage/ents.jpg?v=2",
-  "/collage/manneprat.jpg?v=2",
-  "/collage/haldentaxi.jpg?v=2",
+  "/collage/ekelund.jpg",
+  "/collage/helvedpanel.jpg",
+  "/collage/ents.jpg",
+  "/collage/manneprat.jpg",
+  "/collage/haldentaxi.jpg",
   "/collage/okklinikken.png",
   "/collage/adpoint.png",
   "/collage/helvedpanel2.png",
@@ -47,13 +41,15 @@ function SiteShot({ src }: { src: string }) {
         <span className="h-2 w-2 rounded-full bg-white/25" />
         <span className="ml-2 h-1.5 w-14 rounded bg-white/10" />
       </div>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src={src}
         alt=""
         aria-hidden
         draggable={false}
-        loading="eager"
+        loading="lazy"
+        width={800}
+        height={600}
+        sizes="440px"
         className="block h-auto w-full"
       />
     </div>
