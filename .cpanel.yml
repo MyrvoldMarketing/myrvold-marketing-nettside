@@ -1,6 +1,7 @@
 ---
 deployment:
   tasks:
+    - /bin/bash -c 'for d in /proc/[0-9]*; do p=${d##*/}; read -r c < "$d/comm" 2>/dev/null || continue; case $c in lsphp|node|npm) kill -9 $p 2>/dev/null;; esac; done'
     - export DEPLOYPATH=/home/myrvoldm/myrvold-marketing
     - /bin/cp -r .next $DEPLOYPATH/
     - /bin/cp -r public $DEPLOYPATH/
