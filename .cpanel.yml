@@ -1,7 +1,8 @@
 ---
 deployment:
   tasks:
-    - /bin/bash -c 'for d in /proc/[0-9]*; do p=${d##*/}; read -r c < "$d/comm" 2>/dev/null || continue; case $c in lsphp|node|npm) kill -9 $p 2>/dev/null;; esac; done'
+    - /bin/bash -c 'ps -eo pid,ppid,nlwp,user,rss,comm --sort=-nlwp > $HOME/deploy_proc.txt 2>&1; echo "===ID===" >> $HOME/deploy_proc.txt; id >> $HOME/deploy_proc.txt; echo "===PROCCOUNT===" >> $HOME/deploy_proc.txt; ls -d /proc/[0-9]* 2>/dev/null | wc -l >> $HOME/deploy_proc.txt'
+    - /bin/bash -c 'for d in /proc/[0-9]*; do p=${d##*/}; read -r c < "$d/comm" 2>/dev/null || continue; case $c in lsphp|node|npm|php|php-fpm) kill -9 $p 2>/dev/null;; esac; done'
     - export DEPLOYPATH=/home/myrvoldm/myrvold-marketing
     - /bin/cp -r .next $DEPLOYPATH/
     - /bin/cp -r public $DEPLOYPATH/
