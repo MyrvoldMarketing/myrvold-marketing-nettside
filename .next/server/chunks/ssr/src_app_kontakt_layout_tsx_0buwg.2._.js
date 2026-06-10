@@ -1,3 +1,0 @@
-module.exports=[17721,a=>{"use strict";var b=a.i(7997);a.s(["default",0,function({children:a}){return(0,b.jsx)(b.Fragment,{children:a})},"metadata",0,{title:"Ta kontakt — Myrvold Marketing | Få et gratis designforslag",description:"Få et skreddersydd designforslag på ny nettside — gratis og uforpliktende. Svar innen 24 timer. Ingen forpliktelser, ingen salgspress.",openGraph:{title:"Ta kontakt — Myrvold Marketing",description:"Få et skreddersydd designforslag på ny nettside — gratis og uforpliktende. Svar innen 24 timer.",type:"website",locale:"nb_NO"}}])},75244,a=>{a.n(a.i(17721))}];
-
-//# sourceMappingURL=src_app_kontakt_layout_tsx_0buwg.2._.js.map
