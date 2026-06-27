@@ -408,7 +408,8 @@ export default function Home() {
                 Tjenester
                 <svg className="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M6 9l6 6 6-6"/></svg>
               </a>
-              <div className="pointer-events-none absolute left-0 top-full z-50 mt-2 w-52 rounded-2xl border border-line bg-ink-2 p-2 opacity-0 shadow-xl transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0 translate-y-1">
+              <div className="pointer-events-none absolute left-0 top-full z-50 w-52 pt-2 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 translate-y-1 group-hover:translate-y-0">
+              <div className="rounded-2xl border border-line bg-ink-2 p-2 shadow-xl">
                 <a
                   href="/nettside"
                   className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-paper/85 transition-colors hover:bg-white/5 hover:text-lime"
@@ -416,6 +417,7 @@ export default function Home() {
                   <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-lime/10 text-lime text-xs">✦</span>
                   Ny nettside
                 </a>
+              </div>
               </div>
             </div>
             {nav.slice(1).map((n) => (
