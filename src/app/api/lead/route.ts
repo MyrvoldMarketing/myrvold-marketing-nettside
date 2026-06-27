@@ -126,7 +126,7 @@ export async function POST(req: Request) {
 
     return Response.json({ ok: true });
   } catch (err) {
-    console.error("[lead] send failed:", err);
+    console.error("[lead] send failed:", JSON.stringify(err, Object.getOwnPropertyNames(err)));
     return Response.json(
       { ok: false, error: "Kunne ikke sende akkurat nå. Prøv igjen eller kontakt meg direkte." },
       { status: 502 },
