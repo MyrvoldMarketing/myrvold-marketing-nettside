@@ -399,7 +399,26 @@ export default function Home() {
           <Logo size={34} />
 
           <nav className="hidden items-center gap-9 lg:flex">
-            {nav.map((n) => (
+            {/* Tjenester med dropdown */}
+            <div className="group relative">
+              <a
+                href="#tjenester"
+                className="flex items-center gap-1 text-[15px] font-medium text-paper/85 transition-colors hover:text-lime"
+              >
+                Tjenester
+                <svg className="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              </a>
+              <div className="pointer-events-none absolute left-0 top-full z-50 mt-2 w-52 rounded-2xl border border-line bg-ink-2 p-2 opacity-0 shadow-xl transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0 translate-y-1">
+                <a
+                  href="/nettside"
+                  className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-paper/85 transition-colors hover:bg-white/5 hover:text-lime"
+                >
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-lime/10 text-lime text-xs">✦</span>
+                  Ny nettside
+                </a>
+              </div>
+            </div>
+            {nav.slice(1).map((n) => (
               <a
                 key={n.href}
                 href={n.href}
@@ -445,6 +464,13 @@ export default function Home() {
                 {n.label}
               </a>
             ))}
+            <a
+              href="/nettside"
+              onClick={() => setMenuOpen(false)}
+              className="block rounded-xl px-4 py-3 pl-8 text-sm font-medium text-lime hover:bg-white/5"
+            >
+              ✦ Ny nettside
+            </a>
             <a
               href="/kontakt"
               onClick={() => setMenuOpen(false)}

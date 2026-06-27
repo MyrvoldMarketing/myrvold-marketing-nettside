@@ -1,0 +1,15 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/nettside/layout,_N_T_/nettside/page,_N_T_/nettside"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/nettside/__PAGE__",
+    "/nettside",
+    "/_index",
+    "/_head"
+  ]
+}
