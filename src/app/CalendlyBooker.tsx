@@ -45,7 +45,15 @@ function fmtDate(d: Date, opts?: Intl.DateTimeFormatOptions) {
 const inputCls =
   "w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-paper placeholder:text-paper/40 focus:border-lime focus:outline-none";
 
-export function CalendlyBooker({ onBack }: { onBack: () => void }) {
+type FormMeta = {
+  industry?: string;
+  siteType?: string;
+  inspirasjonslenker?: string;
+  hasWebsite?: string;
+  website?: string;
+};
+
+export function CalendlyBooker({ onBack, formMeta = {} }: { onBack: () => void; formMeta?: FormMeta }) {
   const [weekStart, setWeekStart] = useState<Date>(() => mondayOfWeek(new Date()));
   const [slots, setSlots] = useState<Slot[]>([]);
   const [loading, setLoading] = useState(false);
@@ -100,7 +108,7 @@ export function CalendlyBooker({ onBack }: { onBack: () => void }) {
       const res = await fetch("/api/calendly/book", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ startTime: selectedSlot, name, email, phone }),
+        body: JSON.stringify({ startTime: selectedSlot, name, email, phone, ...formMeta }),
       });
       const data = await res.json();
       if (res.ok) {

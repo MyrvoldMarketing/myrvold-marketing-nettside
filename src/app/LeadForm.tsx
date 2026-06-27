@@ -572,7 +572,16 @@ export default function LeadForm({ variant = "design" }: { variant?: LeadFormVar
 
       {/* STEP 3 — design: Calendly | contact: kontaktinfo */}
       {step === 3 && !isContact && (
-        <CalendlyBooker onBack={() => setStep(2)} />
+        <CalendlyBooker
+          onBack={() => setStep(2)}
+          formMeta={{
+            industry: data.industry,
+            siteType: data.siteType,
+            inspirasjonslenker: data.inspirasjonslenker,
+            hasWebsite: data.hasWebsite,
+            website: data.website,
+          }}
+        />
       )}
 
       {step === 3 && isContact && (
