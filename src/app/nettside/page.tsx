@@ -86,6 +86,7 @@ export default function NettsidenPage() {
                   "Skreddersydd din bedrift",
                   "Ferdig innen 3 virkedager",
                   "Book møte for å få se forslaget",
+                  "Liker du det? Vi prater pris. Liker du det ikke? Du betaler ingenting.",
                 ].map((t) => (
                   <li key={t} className="flex items-center gap-3 text-sm text-paper/80">
                     <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-lime text-ink">
