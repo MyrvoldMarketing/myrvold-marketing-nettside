@@ -578,11 +578,11 @@ export default function LeadForm({ variant = "design" }: { variant?: LeadFormVar
               Velg en tid — jeg viser deg forslaget på Google Meet.
             </p>
           </div>
-          <div className="overflow-hidden rounded-2xl border border-white/10">
+          <div className="rounded-2xl border border-white/10">
             <iframe
               src="https://calendly.com/sebastian-myrvold/30min?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=0a0f1e&text_color=f0ede6&primary_color=b3f000"
               width="100%"
-              height="520"
+              height="750"
               frameBorder="0"
               title="Book møte med Sebastian"
             />
