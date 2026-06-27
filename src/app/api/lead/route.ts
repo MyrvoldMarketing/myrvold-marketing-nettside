@@ -52,10 +52,12 @@ export async function POST(req: Request) {
   const email = (data.email ?? "").trim();
   const phone = (data.phone ?? "").trim();
 
-  if (!name) {
+  const isDesign = (data.variant ?? "design") === "design";
+
+  if (!isDesign && !name) {
     return Response.json({ ok: false, error: "Skriv inn navnet ditt." }, { status: 422 });
   }
-  if (!email || !EMAIL_RE.test(email)) {
+  if (!isDesign && (!email || !EMAIL_RE.test(email))) {
     return Response.json(
       { ok: false, error: "Skriv inn en gyldig e-postadresse." },
       { status: 422 },

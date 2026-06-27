@@ -163,21 +163,42 @@ export default function LeadForm({ variant = "design" }: { variant?: LeadFormVar
         if (!data.budget) return "Velg et omtrentlig budsjett.";
       }
     }
-    if (step === 3) {
-      if (isContact && !data.budget) return "Velg et omtrentlig budsjett.";
+    if (step === 3 && isContact) {
+      if (!data.budget) return "Velg et omtrentlig budsjett.";
       if (!data.name.trim()) return "Skriv inn navnet ditt.";
       if (!EMAIL_RE.test(data.email.trim())) return "Skriv inn en gyldig e-postadresse.";
     }
     return "";
   }
 
-  function next() {
+  async function next() {
     const v = validateStep();
-    if (v) {
-      setError(v);
-      return;
-    }
+    if (v) { setError(v); return; }
     setError("");
+
+    // For design variant: send data to API when moving to step 3 (Calendly)
+    if (!isContact && step === 2) {
+      setStatus("submitting");
+      try {
+        const res = await fetch("/api/lead", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...data, variant }),
+        });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok || !json.ok) {
+          setStatus("error");
+          setError(json.error || "Noe gikk galt. Prøv igjen.");
+          return;
+        }
+        setStatus("idle");
+      } catch {
+        setStatus("error");
+        setError("Nettverksfeil. Sjekk tilkoblingen og prøv igjen.");
+        return;
+      }
+    }
+
     setStep((s) => Math.min(total, s + 1));
   }
 
@@ -562,13 +583,33 @@ export default function LeadForm({ variant = "design" }: { variant?: LeadFormVar
         </div>
       )}
 
-      {/* STEP 3 — kontakt */}
-      {step === 3 && (
+      {/* STEP 3 — design: Calendly | contact: kontaktinfo */}
+      {step === 3 && !isContact && (
+        <div className="space-y-4">
+          <div>
+            <h3 className="display text-2xl text-paper">Book et møte</h3>
+            <p className="mt-1.5 text-sm text-paper/60">
+              Velg en tid — jeg viser deg forslaget på Google Meet.
+            </p>
+          </div>
+          <div className="overflow-hidden rounded-2xl border border-white/10">
+            <iframe
+              src="https://calendly.com/sebastian-myrvold/30min?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=0a0f1e&text_color=f0ede6&primary_color=b3f000"
+              width="100%"
+              height="520"
+              frameBorder="0"
+              title="Book møte med Sebastian"
+            />
+          </div>
+        </div>
+      )}
+
+      {step === 3 && isContact && (
         <div className="space-y-5">
           <div>
             <h3 className="display text-2xl text-paper">Hvor sender jeg forslaget?</h3>
             <p className="mt-1.5 text-sm text-paper/60">
-              Du hører fra meg innen 1–2 virkedager.
+              Jeg ser på forespørselen din og tar kontakt innen 24 timer.
             </p>
           </div>
 
@@ -646,41 +687,44 @@ export default function LeadForm({ variant = "design" }: { variant?: LeadFormVar
         </p>
       )}
 
-      {/* nav buttons */}
-      <div className="mt-7 flex flex-col gap-3">
-        {step < total && (
-          <button
-            type="button"
-            onClick={next}
-            className="group flex w-full items-center justify-center gap-3 rounded-xl bg-violet px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white transition-transform hover:scale-[1.02]"
-          >
-            Neste
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </button>
-        )}
+      {/* nav buttons — skjules på steg 3 for design (Calendly tar over) */}
+      {!(step === total && !isContact) && (
+        <div className="mt-7 flex flex-col gap-3">
+          {step < total && (
+            <button
+              type="button"
+              onClick={next}
+              disabled={status === "submitting"}
+              className="group flex w-full items-center justify-center gap-3 rounded-xl bg-violet px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-70"
+            >
+              {status === "submitting" ? "Sender …" : "Neste"}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </button>
+          )}
 
-        {step === total && (
-          <button
-            type="submit"
-            disabled={status === "submitting"}
-            className="group flex w-full items-center justify-center gap-3 rounded-xl bg-violet px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-70"
-          >
-            {status === "submitting" ? "Sender …" : "Send forespørsel"}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </button>
-        )}
+          {step === total && isContact && (
+            <button
+              type="submit"
+              disabled={status === "submitting"}
+              className="group flex w-full items-center justify-center gap-3 rounded-xl bg-violet px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-70"
+            >
+              {status === "submitting" ? "Sender …" : "Send forespørsel"}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </button>
+          )}
 
-        {step > 1 && (
-          <button
-            type="button"
-            onClick={back}
-            className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 px-5 py-3.5 text-sm font-semibold text-paper transition-colors hover:border-white/30"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Tilbake
-          </button>
-        )}
-      </div>
+          {step > 1 && (
+            <button
+              type="button"
+              onClick={back}
+              className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 px-5 py-3.5 text-sm font-semibold text-paper transition-colors hover:border-white/30"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Tilbake
+            </button>
+          )}
+        </div>
+      )}
 
       <p className="mt-4 text-center text-xs text-paper/50">
         Ingen spam, ingen forpliktelser. Helt gratis.
