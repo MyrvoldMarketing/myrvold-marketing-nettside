@@ -143,7 +143,7 @@ export function CalendlyBooker({ onBack, formMeta = {} }: { onBack: () => void; 
     );
   }
 
-  /* ── Skjema ── */
+  /* ── Kontaktskjema ── */
   if (stage === "form" || stage === "booking") {
     return (
       <div className="space-y-5">
@@ -174,6 +174,7 @@ export function CalendlyBooker({ onBack, formMeta = {} }: { onBack: () => void; 
 
         <div className="flex flex-col gap-3">
           <button
+            type="button"
             onClick={book}
             disabled={stage === "booking"}
             className="flex w-full items-center justify-center rounded-xl bg-lime px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-ink transition-transform hover:scale-[1.02] disabled:opacity-70"
@@ -181,6 +182,7 @@ export function CalendlyBooker({ onBack, formMeta = {} }: { onBack: () => void; 
             {stage === "booking" ? "Booker …" : "Book møte"}
           </button>
           <button
+            type="button"
             onClick={() => setStage("dates")}
             className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 px-5 py-3.5 text-sm font-semibold text-paper hover:border-white/30"
           >
@@ -202,6 +204,7 @@ export function CalendlyBooker({ onBack, formMeta = {} }: { onBack: () => void; 
       {/* Ukenavigasjon */}
       <div className="flex items-center justify-between">
         <button
+          type="button"
           onClick={() => { setWeekStart(addDays(weekStart, -7)); setSelectedDate(null); }}
           className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 text-paper/60 hover:border-white/30 hover:text-paper"
         >
@@ -209,6 +212,7 @@ export function CalendlyBooker({ onBack, formMeta = {} }: { onBack: () => void; 
         </button>
         <span className="text-sm font-semibold capitalize text-paper">{monthLabel}</span>
         <button
+          type="button"
           onClick={() => { setWeekStart(addDays(weekStart, 7)); setSelectedDate(null); }}
           className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 text-paper/60 hover:border-white/30 hover:text-paper"
         >
@@ -224,6 +228,7 @@ export function CalendlyBooker({ onBack, formMeta = {} }: { onBack: () => void; 
           const isPast = day < today;
           return (
             <button
+              type="button"
               key={i}
               disabled={!hasSlots || isPast}
               onClick={() => setSelectedDate(day)}
@@ -258,6 +263,7 @@ export function CalendlyBooker({ onBack, formMeta = {} }: { onBack: () => void; 
             <div className="grid grid-cols-3 gap-2">
               {daySlots.map((slot) => (
                 <button
+                  type="button"
                   key={slot.start_time}
                   onClick={() => { setSelectedSlot(slot.start_time); setStage("form"); }}
                   className="rounded-xl border border-white/10 py-2.5 text-sm font-semibold text-paper transition-colors hover:border-lime hover:text-lime"
@@ -271,6 +277,7 @@ export function CalendlyBooker({ onBack, formMeta = {} }: { onBack: () => void; 
       )}
 
       <button
+        type="button"
         onClick={onBack}
         className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 px-5 py-3.5 text-sm font-semibold text-paper hover:border-white/30"
       >
