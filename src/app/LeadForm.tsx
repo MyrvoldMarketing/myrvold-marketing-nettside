@@ -176,27 +176,13 @@ export default function LeadForm({ variant = "design" }: { variant?: LeadFormVar
     if (v) { setError(v); return; }
     setError("");
 
-    // For design variant: send data to API when moving to step 3 (Calendly)
+    // For design variant: fire-and-forget API call, then always advance to Calendly
     if (!isContact && step === 2) {
-      setStatus("submitting");
-      try {
-        const res = await fetch("/api/lead", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...data, variant }),
-        });
-        const json = await res.json().catch(() => ({}));
-        if (!res.ok || !json.ok) {
-          setStatus("error");
-          setError(json.error || "Noe gikk galt. Prøv igjen.");
-          return;
-        }
-        setStatus("idle");
-      } catch {
-        setStatus("error");
-        setError("Nettverksfeil. Sjekk tilkoblingen og prøv igjen.");
-        return;
-      }
+      fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, variant }),
+      }).catch(() => {/* ignore — Calendly handles the booking */});
     }
 
     setStep((s) => Math.min(total, s + 1));
