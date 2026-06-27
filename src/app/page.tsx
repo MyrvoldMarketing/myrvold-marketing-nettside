@@ -881,13 +881,13 @@ export default function Home() {
                   <span className="text-lime">designforslag?</span>
                 </h2>
                 <p className="mt-5 max-w-md text-paper/70">
-                  Et skreddersydd designforslag på ny nettside eller nettbutikk for bedriften din — uforpliktende, og helt gratis. Book deretter et møte for å gå gjennom det sammen.
+                  Et skreddersydd designforslag på ny nettside eller nettbutikk for bedriften din — uforpliktende, og helt gratis. Book deretter et møte for å få se det med Sebastian.
                 </p>
 
                 <ul className="mt-8 space-y-4">
                   {[
                     ["Skreddersydd", "Designet kun for din bedrift og bransje."],
-                    ["Book møte", "Gå gjennom forslaget med Sebastian på video."],
+                    ["Book møte", "Få se forslaget med Sebastian på video."],
                     ["Ingen binding", "Du bestemmer om du vil gå videre."],
                   ].map(([t, d]) => (
                     <li key={t} className="flex gap-4">
