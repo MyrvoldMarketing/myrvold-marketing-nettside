@@ -228,7 +228,7 @@ export default function LeadForm({ variant = "design" }: { variant?: LeadFormVar
             </span>
             <h3 className="display text-2xl text-paper">Forespørselen er sendt!</h3>
             <p className="max-w-xs text-sm text-paper/70">
-              Jeg lager designforslaget og sender det innen 1–2 virkedager. Book gjerne et møte for å gå gjennom det sammen.
+              Jeg lager designforslaget og sender det innen 3 virkedager. Book gjerne et møte for å få se det sammen.
             </p>
           </div>
           <div className="mt-4 overflow-hidden rounded-2xl border border-white/10">

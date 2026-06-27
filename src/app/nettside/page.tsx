@@ -51,7 +51,7 @@ export default function NettsidenPage() {
       {/* NAV */}
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink/85 backdrop-blur-md">
         <div className="mx-auto flex max-w-[100rem] items-center justify-between px-5 py-4 sm:px-8 lg:px-12">
-          <a href="/"><Logo size={34} /></a>
+          <Logo size={34} href="/" />
           <nav className="hidden items-center gap-9 lg:flex">
             <a href="/#tjenester" className="text-[15px] font-medium text-paper/85 transition-colors hover:text-lime">Tjenester</a>
             <a href="/#prosess" className="text-[15px] font-medium text-paper/85 transition-colors hover:text-lime">Slik jobber jeg</a>
