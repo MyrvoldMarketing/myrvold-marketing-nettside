@@ -101,9 +101,13 @@ export async function POST(req: Request) {
   ].join("\n");
 
   try {
-    // Bruker cPanel sin lokale Exim (port 25, ingen auth) som primær.
-    // Fallback til SMTP med auth om SMTP_PASS er satt.
     const smtpPass = process.env.SMTP_PASS;
+    console.log("[lead] SMTP config:", {
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      user: process.env.SMTP_USER,
+      hasPass: !!smtpPass,
+    });
     const transporter = smtpPass
       ? nodemailer.createTransport({
           host: process.env.SMTP_HOST ?? "localhost",
