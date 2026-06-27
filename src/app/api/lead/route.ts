@@ -14,6 +14,8 @@ type Payload = {
   goal?: string;
   budget?: string;
   timeline?: string;
+  siteType?: string;
+  inspirasjonslenker?: string;
   name?: string;
   email?: string;
   phone?: string;
@@ -44,6 +46,8 @@ export async function POST(req: Request) {
   const goal = (data.goal ?? "").trim();
   const budget = (data.budget ?? "").trim();
   const timeline = (data.timeline ?? "").trim();
+  const siteType = (data.siteType ?? "").trim();
+  const inspirasjonslenker = (data.inspirasjonslenker ?? "").trim();
   const name = (data.name ?? "").trim();
   const email = (data.email ?? "").trim();
   const phone = (data.phone ?? "").trim();
@@ -86,6 +90,8 @@ export async function POST(req: Request) {
     `Annonserer i dag:${runsAds ? ` ${runsAds}` : " (ikke svart)"}`,
     `Nettside-URL:    ${website || "(ingen)"}`,
     "",
+    siteType ? `Type:      ${siteType}` : "",
+    inspirasjonslenker ? `Inspirasjon:\n${inspirasjonslenker}\n` : "",
     `Mål:       ${goal || "(ikke valgt)"}`,
     `Budsjett:  ${budget || "(ikke valgt)"}`,
     `Tidsplan:  ${timeline || "(ikke valgt)"}`,

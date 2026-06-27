@@ -15,6 +15,8 @@ type FormData = {
   goal: string;
   budget: string;
   timeline: string;
+  siteType: "" | "nettside" | "nettbutikk";
+  inspirasjonslenker: string;
   name: string;
   email: string;
   phone: string;
@@ -31,6 +33,8 @@ const EMPTY: FormData = {
   goal: "",
   budget: "",
   timeline: "",
+  siteType: "",
+  inspirasjonslenker: "",
   name: "",
   email: "",
   phone: "",
@@ -152,10 +156,15 @@ export default function LeadForm({ variant = "design" }: { variant?: LeadFormVar
       }
     }
     if (step === 2) {
-      if (goalsList.length > 0 && !data.goal) return "Velg hva du ønsker å oppnå.";
-      if (!data.budget) return "Velg et omtrentlig budsjett.";
+      if (!isContact) {
+        if (!data.siteType) return "Velg nettside eller nettbutikk.";
+      } else {
+        if (goalsList.length > 0 && !data.goal) return "Velg hva du ønsker å oppnå.";
+        if (!data.budget) return "Velg et omtrentlig budsjett.";
+      }
     }
     if (step === 3) {
+      if (isContact && !data.budget) return "Velg et omtrentlig budsjett.";
       if (!data.name.trim()) return "Skriv inn navnet ditt.";
       if (!EMAIL_RE.test(data.email.trim())) return "Skriv inn en gyldig e-postadresse.";
     }
@@ -210,6 +219,33 @@ export default function LeadForm({ variant = "design" }: { variant?: LeadFormVar
   }
 
   if (status === "success") {
+    if (!isContact) {
+      return (
+        <div className="rounded-3xl border border-lime/30 bg-ink/60 p-7 backdrop-blur sm:p-9">
+          <div className="flex flex-col items-center gap-4 py-6 text-center">
+            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-lime text-ink">
+              <Check className="h-7 w-7" />
+            </span>
+            <h3 className="display text-2xl text-paper">Forespørselen er sendt!</h3>
+            <p className="max-w-xs text-sm text-paper/70">
+              Jeg lager designforslaget og sender det innen 1–2 virkedager. Book gjerne et møte for å gå gjennom det sammen.
+            </p>
+          </div>
+          <div className="mt-4 overflow-hidden rounded-2xl border border-white/10">
+            <iframe
+              src="https://calendly.com/sebastian-myrvold/30min?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=0a0f1e&text_color=f0ede6&primary_color=b3f000"
+              width="100%"
+              height="520"
+              frameBorder="0"
+              title="Book møte med Sebastian"
+            />
+          </div>
+          <p className="mt-3 text-center text-xs text-paper/40">
+            Tilgjengelig man–fre. Møtet holdes på Google Meet.
+          </p>
+        </div>
+      );
+    }
     return (
       <div className="rounded-3xl border border-lime/30 bg-ink/60 p-7 backdrop-blur sm:p-9">
         <div className="flex flex-col items-center gap-4 py-8 text-center">
@@ -218,9 +254,7 @@ export default function LeadForm({ variant = "design" }: { variant?: LeadFormVar
           </span>
           <h3 className="display text-2xl text-paper">Takk! Forespørselen er sendt.</h3>
           <p className="max-w-xs text-sm text-paper/70">
-            {isContact
-              ? "Jeg ser på forespørselen din og tar kontakt innen 24 timer."
-              : "Jeg lager et personlig designforslag til bedriften din og sender det innen 1–2 virkedager."}
+            Jeg ser på forespørselen din og tar kontakt innen 24 timer.
           </p>
         </div>
       </div>
@@ -396,8 +430,60 @@ export default function LeadForm({ variant = "design" }: { variant?: LeadFormVar
         </div>
       )}
 
-      {/* STEP 2 — mål og budsjett */}
-      {step === 2 && (
+      {/* STEP 2 — design: nettside/nettbutikk + inspirasjon | contact: mål og budsjett */}
+      {step === 2 && !isContact && (
+        <div className="space-y-5">
+          <div>
+            <h3 className="display text-2xl text-paper">Hva skal vi lage?</h3>
+            <p className="mt-1.5 text-sm text-paper/60">
+              Fortell litt om hva du ser for deg.
+            </p>
+          </div>
+
+          <div>
+            <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-paper/60">
+              Nettside eller nettbutikk?
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              {(["nettside", "nettbutikk"] as const).map((v) => (
+                <button
+                  key={v}
+                  type="button"
+                  onClick={() => update("siteType", v)}
+                  className={`rounded-xl border px-4 py-3 text-sm font-semibold capitalize transition-colors ${
+                    data.siteType === v
+                      ? "border-lime bg-lime/10 text-lime"
+                      : "border-white/10 bg-white/[0.03] text-paper hover:border-white/30"
+                  }`}
+                >
+                  {v.charAt(0).toUpperCase() + v.slice(1)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label
+              htmlFor="lead-inspirasjon"
+              className="mb-2 block text-xs font-semibold uppercase tracking-wider text-paper/60"
+            >
+              Er det en eller flere sider du liker i dag?{" "}
+              <span className="text-paper/40 normal-case font-normal">(valgfritt)</span>
+            </label>
+            <textarea
+              id="lead-inspirasjon"
+              rows={4}
+              placeholder={"Lim inn én eller flere lenker, én per linje:\nhttps://eksempel.no\nhttps://annenside.no"}
+              value={data.inspirasjonslenker}
+              onChange={(e) => update("inspirasjonslenker", e.target.value)}
+              className={inputClass}
+            />
+            <p className="mt-1.5 text-xs text-paper/40">Fra konkurrent, inspirasjon eller andre nettsider du liker.</p>
+          </div>
+        </div>
+      )}
+
+      {step === 2 && isContact && (
         <div className="space-y-5">
           <div>
             <h3 className="display text-2xl text-paper">Mål og budsjett</h3>

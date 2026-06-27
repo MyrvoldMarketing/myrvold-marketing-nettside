@@ -79,13 +79,13 @@ export default function NettsidenPage() {
                 <span className="text-lime">designforslag</span>
               </h1>
               <p className="mt-6 max-w-md text-paper/70">
-                Et skreddersydd designforslag på ny nettside for bedriften din — uforpliktende, og helt gratis. Du får det tilsendt på e-post innen 1–2 virkedager.
+                Et skreddersydd designforslag på ny nettside eller nettbutikk for bedriften din — uforpliktende, og helt gratis. Book deretter et møte for å gå gjennom det med Sebastian.
               </p>
               <ul className="mt-8 space-y-3">
                 {[
                   "Skreddersydd din bedrift",
                   "Ferdig innen 1–2 virkedager",
-                  "Ingen binding",
+                  "Book møte for gjennomgang",
                 ].map((t) => (
                   <li key={t} className="flex items-center gap-3 text-sm text-paper/80">
                     <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-lime text-ink">
